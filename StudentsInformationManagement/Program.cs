@@ -69,6 +69,46 @@ namespace StudentsInformationManagement
             }
         }
 
+        static private void initRoleList()
+        {
+            if (teachertList.Count == 0)
+                teachertList.Add(new Teacher(
+                    "管理员", "", "admin", "", "", MD5.Create().ComputeHash(
+                        Encoding.UTF8.GetBytes("admin")).ToString()
+                ));
+            if (studentList.Count == 0)
+            {
+                var kongjh = new Student(
+                    "孔江华", "男", "202170623", "数字媒体技术"
+                    , "10987654321", "kongjh@gmail.com", ""
+                    , MD5.Create().ComputeHash(
+                        Encoding.UTF8.GetBytes("kongjh")).ToString()
+                );
+                kongjh.scores["C++"] = 80;
+                kongjh.scores["Java"] = 89;
+                kongjh.scores["C#"] = 87;
+                kongjh.scores["Unity"] = 77;
+                kongjh.scores["高等数学"] = 67;
+
+                var zhouh = new Student(
+                    "周欢", "男", "202170637", "数字媒体技术"
+                    , "12345678910", "zhouh@gmail.com", ""
+                    , MD5.Create().ComputeHash(
+                        Encoding.UTF8.GetBytes("zhouh")).ToString()
+                );
+
+                zhouh.scores["C++"] = 76;
+                zhouh.scores["Java"] = 93;
+                zhouh.scores["C#"] = 80;
+                zhouh.scores["Unity"] = 87;
+                zhouh.scores["高等数学"] = 78;
+
+                studentList.Add(kongjh);
+                studentList.Add(zhouh);
+            }
+
+        }
+
         static public RoleBase getRole(string id, bool isStudent = true)
         {
             if (isStudent)
@@ -158,27 +198,7 @@ namespace StudentsInformationManagement
 
             // 加载学生和教师列表
             loadDatabase();
-
-            if (teachertList.Count == 0)
-                teachertList.Add(new Teacher(
-                    "管理员", "", "admin", "", "", MD5.Create().ComputeHash(
-                        Encoding.UTF8.GetBytes("admin")).ToString()
-                ));
-            if (studentList.Count == 0)
-            {
-                studentList.Add(new Student(
-                    "孔江华", "男", "202170623", "数字媒体技术"
-                    , "10987654321", "kongjh@gmail.com", ""
-                    , MD5.Create().ComputeHash(
-                        Encoding.UTF8.GetBytes("kongjh")).ToString()
-                ));
-                studentList.Add(new Student(
-                    "周欢", "男", "202170637", "数字媒体技术"
-                    , "12345678910", "zhouh@gmail.com", ""
-                    , MD5.Create().ComputeHash(
-                        Encoding.UTF8.GetBytes("zhouh")).ToString()
-                ));
-            }
+            initRoleList();
 
             var loginDialog = new Login();
             Form managementDialog = null;
